@@ -20,7 +20,7 @@ Additional limitations:
 - Extensions packages must be registered by using the IBM Case Manager configuration tool.
 - External data service integration must be registered using the IBM Case Manager configuration tool.
 - When you create a new second target object store, you must configure Business Rules by using the IBM Case Manager configuration tool. 
-- CMIS and PE REST are no longer included in the IBM Case Manager application. CMIS is in a separate Docker container, while PE REST is hosted in the Content Platform Engine application. For more information, see [CMIS document](https://github.ibm.com/ecm-container-service/cmis-docker) and [PE REST Service](https://www.ibm.com/support/knowledgecenter/en/SSGLW6_5.2.1/com.ibm.p8.pe.dev.doc/rest/rest_configure.htm).
+- CMIS and PE REST are no longer included in the IBM Case Manager application. CMIS is in a separate Docker container, while PE REST is hosted in the Content Platform Engine application. For more information, see [CMIS document](https://github.com/ibm-ecm/container-cmis) and [PE REST Service](https://www.ibm.com/support/knowledgecenter/en/SSGLW6_5.2.1/com.ibm.p8.pe.dev.doc/rest/rest_configure.htm).
 
 # Known Issues
 The following issues have been observed:
@@ -43,7 +43,7 @@ Before you deploy and run the IBM Case Manager container image, confirm the foll
 - Create a Workflow System, Connection Point, and Isolated Region in the TARGET Object Store. For details, see [Configuring a workflow system for IBM Case Manager](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.1/com.ibm.casemgmt.installing.doc/acmin049.htm)
 
 ## 2. Prepare the IBM Content Navigator configuration files.
-This image based is based on IBM Content Navigator. To make IBM Case Manager work, you must first prepare the configuration files for the IBM Content Navigatory container image. See [Preparing for container installation](https://github.ibm.com/ecm-container-service/navigator-docker#preparing-for-container-installation) in the IBM Content Navigator container readme and confirm that all the listed steps are completed.
+This image based is based on IBM Content Navigator. To make IBM Case Manager work, you must first prepare the configuration files for the IBM Content Navigatory container image. See [Preparing for container installation](https://github.com/ibm-ecm/container-icn#preparing-for-container-installation) in the IBM Content Navigator container readme and confirm that all the listed steps are completed.
 
 ## 3. Create volumes for the container.
 Create a folder on shared or local storage to hold the deployment specific configuration files as well as data that will live outside the container. In addition to the volumes that are created for IBM Content Navigator in the previous step, the IBM Case Manager container requires one extra volume.
@@ -60,7 +60,7 @@ Create the following files with data that is specific to your environment:
 - XML configuration file for each TARGET Object Store
 - XML configuration file for any Case History stores or Case Analyzer stores
 
-The XA datasource must set ```enableSharingForDirectLookups=true```, while the non-XA datasource must set ```enableSharingForDirectLookups=false```. Examples of these configuration files can be found in [samples folder](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples).
+The XA datasource must set ```enableSharingForDirectLookups=true```, while the non-XA datasource must set ```enableSharingForDirectLookups=false```. Examples of these configuration files can be found in [samples folder](https://github.com/ibm-ecm/container-icm/tree/master/examples).
 
 Copy the following XML configuration files to the configDropins/overrides directory in your Content Platform Engine container image:
 
@@ -69,7 +69,7 @@ Copy the following XML configuration files to the configDropins/overrides direct
 - Case History store and/or Case Analyzer store data source xml files
 
 ## 5. Enable logging for Case Manager.
-To enable logging of Case Manager messages, copy the sample [log4j.properties](https://github.ibm.com/ecm-container-service/ICM-docker/blob/master/examples/log4j.properties) file from the [samples folder](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples) to the configDropins/overrides volume map directory in your IBM Case Manager container image.  You may customize the file to change how Case Manager messages are logged.  If you wish to enable additional logging for other components, such as the Content Platform Engine client, you may combine this file with CPE client log4j.properties files.
+To enable logging of Case Manager messages, copy the sample [log4j.properties](https://github.com/ibm-ecm/container-icm/blob/master/examples/log4j.properties) file from the [samples folder](https://github.com/ibm-ecm/container-icm/tree/master/examples) to the configDropins/overrides volume map directory in your IBM Case Manager container image.  You may customize the file to change how Case Manager messages are logged.  If you wish to enable additional logging for other components, such as the Content Platform Engine client, you may combine this file with CPE client log4j.properties files.
 
 ## 6. Change the permissions for mounted directories.
 
@@ -88,7 +88,7 @@ Reminder: A Linux host or virtual machine with Docker engine installed is requir
 
 You can use the following sample command to run the IBM Case Manager container without monitoring: 
 
-```docker run -d --name icm -p 9080:9080 -p 9443:9443  -v /home/data/plugins:/opt/ibm/plugins -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/ ecm-containerization-docker-local.artifactory.swg-devops.com/icm:latest ```
+```docker run -d --name icm -p 9080:9080 -p 9443:9443  -v /home/data/plugins:/opt/ibm/plugins -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/  ibmcorp/ecm_earlyadopters_icm:earlyadopters-gm5.5 ```
 
 Compared with the IBM Content Navigator Docker image, two changes are required:
 
@@ -121,7 +121,7 @@ After the configuration is complete, you can browse to http://your-host-ip:9443/
 
 # Usage
 ## 1. Set environment variables.  
-Since IBM Case Manager image is based on IBM Content Navigator, all Navigator environment variables are inherited. You can see which variables are relevant for IBM Content Navigator in the Navigator container [here](https://github.ibm.com/ecm-container-service/navigator-docker#environment-variables). The following variables are specific to IBM Case Manager:
+Since IBM Case Manager image is based on IBM Content Navigator, all Navigator environment variables are inherited. You can see which variables are relevant for IBM Content Navigator in the Navigator container [here](https://github.com/ibm-ecm/container-icn#set-environment-variables). The following variables are specific to IBM Case Manager:
 <table style="width:100%">
   <tr>
     <th>Name</th>
@@ -149,20 +149,20 @@ Since IBM Case Manager image is based on IBM Content Navigator, all Navigator en
   </tr>
   </table>
 
-For monitoring environment variables, see [ECM Monitoring Github](https://github.ibm.com/ecm-container-service/ecm-container-monitoring#environment-variables)
+For monitoring environment variables, see [ECM Monitoring Github](https://github.com/ibm-ecm/container-monitoring#environment-variables)
 
 ## 2. Run IBM Case Manager container with monitoring.
 
 Connect to the Bluemix metrics service by using IBM Cloud Monitoring metrics writer for space or organization scope, and connect to the Bluemix logging service using Bluemix multi-tenant lumberjack writer:
 
-- ```docker run -d --name icn -p 9080:9080 -p 9443:9443 --hostname=icm1 -e MON_METRICS_WRITER_OPTION=2 -e MON_METRICS_SERVICE_ENDPOINT=metrics.ng.bluemix.net:9095 -e MON_BMX_GROUP=com.ibm.ecm.monitor. -e MON_BMX_METRICS_SCOPE_ID={space or organization guid} -e MON_BMX_API_KEY={IAM API key} -e MON_LOG_SHIPPER_OPTION=2 -e MON_BMX_SPACE_ID={tenant id} -e MON_LOG_SERVICE_ENDPOINT=logs.opvis.bluemix.net:9091 -e MON_BMX_LOGS_LOGGING_TOKEN={log logging token} -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/plugins:/opt/ibm/plugins -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/ ecm-containerization-docker-local.artifactory.swg-devops.com/icm:latest```
+- ```docker run -d --name icn -p 9080:9080 -p 9443:9443 --hostname=icm1 -e MON_METRICS_WRITER_OPTION=2 -e MON_METRICS_SERVICE_ENDPOINT=metrics.ng.bluemix.net:9095 -e MON_BMX_GROUP=com.ibm.ecm.monitor. -e MON_BMX_METRICS_SCOPE_ID={space or organization guid} -e MON_BMX_API_KEY={IAM API key} -e MON_LOG_SHIPPER_OPTION=2 -e MON_BMX_SPACE_ID={tenant id} -e MON_LOG_SERVICE_ENDPOINT=logs.opvis.bluemix.net:9091 -e MON_BMX_LOGS_LOGGING_TOKEN={log logging token} -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/plugins:/opt/ibm/plugins -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/ docker pull ibmcorp/ecm_earlyadopters_icm:earlyadopters-gm5.5```
 
 ## 3. Run the IBM Case Manager container on Kubernetes.
-Following the [guide](https://github.ibm.com/ecm-container-service/navigator-docker#run-the-ibm-content-navigator-container-on-kubernetes) on Navigator to do it. Just remember to create ICM specific folder under /cfgstore:
+Following the [guide](https://github.com/ibm-ecm/container-icn#run-the-ibm-content-navigator-container-on-kubernetes) on Navigator to do it. Just remember to create ICM specific folder under /cfgstore:
 
 ```/cfgstore/icm/shared```
 
-Then follow the guide in [Configure Case Manager](https://github.ibm.com/ecm-container-service/ICM-docker#3-configure-case-manager) section to configure Case Manager.
+Then follow the guide in [Configure Case Manager](https://github.com/ibm-ecm/container-icm#3-configure-case-manager) section to configure Case Manager.
 ## 4. Optional ICM configuration.
 
 ### 4.1 Use Stand-alone Process Designer.
@@ -170,12 +170,12 @@ By default, Case Builder is configured to not launch the Process Designer applet
 
 After installing the stand-alone Process Designer application, IBM Case Manager requires an additional step:
 
-- Copy the [ICMSolutionEdit.jar](https://github.ibm.com/ecm-container-service/ICM-docker/blob/master/examples/ICMSolutionEdit.jar) from the [samples folder](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples) to the lib folder in your Content Platform Engine installation directory in which you installed the standalone Process Designer. This file enables standalone Process Designer to support editing by multiple users.
+- Copy the [ICMSolutionEdit.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/ICMSolutionEdit.jar) from the [samples folder](https://github.com/ibm-ecm/container-icm/tree/master/examples) to the lib folder in your Content Platform Engine installation directory in which you installed the standalone Process Designer. This file enables standalone Process Designer to support editing by multiple users.
 
 ### 4.2 Use the Case Synchronizer tool.
 To set up the Case Synchronizer tool:
 
-- Download [caseSynchronizer.jar](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/caseSynchronizer.jar), either [caseSynchronizer.bat](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/caseSynchronizer.bat) or [caseSynchronizer.sh](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/caseSynchronizer.sh), [Jace.jar](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/Jace.jar), and [log4j-1.2.13.jar](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/log4j-1.2.13.jar) from the [samples folder](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples).
+- Download [caseSynchronizer.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/caseSynchronizer.jar), either [caseSynchronizer.bat](https://github.com/ibm-ecm/container-icm/blob/master/examples/caseSynchronizer.bat) or [caseSynchronizer.sh](https://github.com/ibm-ecm/container-icm/blob/master/examples/caseSynchronizer.sh), [Jace.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/Jace.jar), and [log4j-1.2.13.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/log4j-1.2.13.jar) from the [samples folder](https://github.com/ibm-ecm/container-icm/tree/master/examples).
 - Designate a folder as the starting folder (such as /opt/IBM/CaseManagement).  In that starting folder, create a lib directory and copy the above jar files to that directory.
 - Update caseSynchronizer.bat or caseSynchronizer.sh:
     - Set STARTING_FOLDER to the designated folder that contains the lib directory with the downloaded jar files.
@@ -188,7 +188,7 @@ For full information, see [Synchronizing cases with solution data](https://www.i
  
 To set up the Precondition Checker tool:
 
-- Download [preconditionChecker.jar](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/preconditionChecker.jar), either [preconditionChecker.bat](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/preconditionChecker.bat) or [preconditionChecker.sh](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/preconditionChecker.sh), [Jace.jar](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/Jace.jar), and [log4j-1.2.13.jar](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples/log4j-1.2.13.jar) from the [samples folder](https://github.ibm.com/ecm-container-service/ICM-docker/tree/master/examples).
+- Download [preconditionChecker.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/preconditionChecker.jar), either [preconditionChecker.bat](https://github.com/ibm-ecm/container-icm/blob/master/examples/preconditionChecker.bat) or [preconditionChecker.sh](https://github.com/ibm-ecm/container-icm/blob/master/examples/preconditionChecker.sh), [Jace.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/Jace.jar), and [log4j-1.2.13.jar](https://github.com/ibm-ecm/container-icm/blob/master/examples/log4j-1.2.13.jar) from the [samples folder](https://github.com/ibm-ecm/container-icm/tree/master/examples).
 - Designate a folder as the starting folder (such as /opt/IBM/CaseManagement).  In that starting folder, create a lib directory and copy the above jar files to that directory.
 - Update preconditionChecker.bat or preconditionChecker.sh:
     - Set STARTING_FOLDER to the designated folder that contains the lib directory with the downloaded jar files.
