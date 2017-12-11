@@ -81,14 +81,14 @@ Change the owner permission on the host mount directories to make sure that the 
 Use the following commands with your own credentials:
 
 - ```docker login -u [Docker ID] -p [Password]```
-- ```docker pull ibmcorp/ecm_earlyadopters_icm:earlyadopters-gm5.5```
+- ```docker pull ecmcontainers/ecm_earlyadopters_icm:earlyadopters-gm5.5```
 
 ## 2. Run the container in the Docker environment.
 Reminder: A Linux host or virtual machine with Docker engine installed is required to run this image. You can use the information [here](https://docs.docker.com/engine/installation/) for Docker installation.
 
 You can use the following sample command to run the IBM Case Manager container without monitoring: 
 
-```docker run -d --name icm -p 9080:9080 -p 9443:9443  -v /home/data/plugins:/opt/ibm/plugins -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/  ibmcorp/ecm_earlyadopters_icm:earlyadopters-gm5.5 ```
+```docker run -d --name icm -p 9080:9080 -p 9443:9443  -v /home/data/plugins:/opt/ibm/plugins -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/  ecmcontainers/ecm_earlyadopters_icm:earlyadopters-gm5.5 ```
 
 Compared with the IBM Content Navigator Docker image, two changes are required:
 
@@ -155,7 +155,7 @@ For monitoring environment variables, see [ECM Monitoring Github](https://github
 
 Connect to the Bluemix metrics service by using IBM Cloud Monitoring metrics writer for space or organization scope, and connect to the Bluemix logging service using Bluemix multi-tenant lumberjack writer:
 
-- ```docker run -d --name icn -p 9080:9080 -p 9443:9443 --hostname=icm1 -e MON_METRICS_WRITER_OPTION=2 -e MON_METRICS_SERVICE_ENDPOINT=metrics.ng.bluemix.net:9095 -e MON_BMX_GROUP=com.ibm.ecm.monitor. -e MON_BMX_METRICS_SCOPE_ID={space or organization guid} -e MON_BMX_API_KEY={IAM API key} -e MON_LOG_SHIPPER_OPTION=2 -e MON_BMX_SPACE_ID={tenant id} -e MON_LOG_SERVICE_ENDPOINT=logs.opvis.bluemix.net:9091 -e MON_BMX_LOGS_LOGGING_TOKEN={log logging token} -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/plugins:/opt/ibm/plugins -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/ docker pull ibmcorp/ecm_earlyadopters_icm:earlyadopters-gm5.5```
+- ```docker run -d --name icn -p 9080:9080 -p 9443:9443 --hostname=icm1 -e MON_METRICS_WRITER_OPTION=2 -e MON_METRICS_SERVICE_ENDPOINT=metrics.ng.bluemix.net:9095 -e MON_BMX_GROUP=com.ibm.ecm.monitor. -e MON_BMX_METRICS_SCOPE_ID={space or organization guid} -e MON_BMX_API_KEY={IAM API key} -e MON_LOG_SHIPPER_OPTION=2 -e MON_BMX_SPACE_ID={tenant id} -e MON_LOG_SERVICE_ENDPOINT=logs.opvis.bluemix.net:9091 -e MON_BMX_LOGS_LOGGING_TOKEN={log logging token} -v /home/data/viewerlog:/opt/ibm/viewerconfig/logs -v /home/data/viewercache:/opt/ibm/viewerconfig/cache -v /home/data/plugins:/opt/ibm/plugins -v /home/data/logs:/opt/ibm/wlp/usr/servers/defaultServer/logs -v /home/data/configDropins/overrides:/opt/ibm/wlp/usr/servers/defaultServer/configDropins/overrides -v /home/data/shared:/opt/ibm/icm/shared -e CPE_URL=http://CE_HOST:CE_PORT/wsi/FNCEWS40MTOM/ docker pull ecmcontainers/ecm_earlyadopters_icm:earlyadopters-gm5.5```
 
 ## 3. Run the IBM Case Manager container on Kubernetes.
 Following the [guide](https://github.com/ibm-ecm/container-icn#run-the-ibm-content-navigator-container-on-kubernetes) on Navigator to do it. Just remember to create ICM specific folder under /cfgstore:
