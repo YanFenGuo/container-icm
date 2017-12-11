@@ -1,7 +1,7 @@
 # IBM Case Manager Container Overview
 The IBM® Case Manager container is a Docker image that enables you to quickly deploy IBM Case Manager without needing to do a traditional software install. The IBM Case Manager container image is based on IBM Case Manager 5.3.2, IBM Content Navigator 3.0.3 and the Liberty 17.0.0.3 release.
 
-For more details about IBM Case Manager, see the [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.1/com.ibm.casemgmttoc.doc/casemanager_5.3.1.htm)
+For more details about IBM Case Manager, see the [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.2/com.ibm.casemgmttoc.doc/casemanager_5.3.2.htm)
 
 # Limitations
 Currently the following features are not available for this image:
@@ -20,7 +20,7 @@ Additional limitations:
 - Extensions packages must be registered by using the IBM Case Manager configuration tool.
 - External data service integration must be registered using the IBM Case Manager configuration tool.
 - When you create a new second target object store, you must configure Business Rules by using the IBM Case Manager configuration tool. 
-- CMIS and PE REST are no longer included in the IBM Case Manager application. CMIS is in a separate Docker container, while PE REST is hosted in the Content Platform Engine application. For more information, see [CMIS document](https://github.com/ibm-ecm/container-cmis) and [PE REST Service](https://www.ibm.com/support/knowledgecenter/en/SSGLW6_5.2.1/com.ibm.p8.pe.dev.doc/rest/rest_configure.htm).
+- CMIS and PE REST are no longer included in the IBM Case Manager application. CMIS is in a separate Docker container, while PE REST is hosted in the Content Platform Engine application. For more information, see [CMIS document](https://github.com/ibm-ecm/container-cmis) and [PE REST Service](https://www.ibm.com/support/knowledgecenter/en/SSGLW6_5.5.0/com.ibm.p8.pe.dev.doc/rest/rest_configure.htm).
 
 # Known Issues
 The following issues have been observed:
@@ -39,8 +39,8 @@ Before you deploy and run the IBM Case Manager container image, confirm the foll
 # Preparing for container installation
 
 ## 1. Prepare Content Platform Engine for IBM Case Manager.
-- Create a DESIGN Object Store and a TARGET Object Store. For details, see [Creating IBM Case Manager object stores on Content Platform Engine](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.1/com.ibm.casemgmt.installing.doc/acmin048b.htm)
-- Create a Workflow System, Connection Point, and Isolated Region in the TARGET Object Store. For details, see [Configuring a workflow system for IBM Case Manager](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.1/com.ibm.casemgmt.installing.doc/acmin049.htm)
+- Create a DESIGN Object Store and a TARGET Object Store. For details, see [Creating IBM Case Manager object stores on Content Platform Engine](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.2/com.ibm.casemgmt.installing.doc/acmin048b.htm)
+- Create a Workflow System, Connection Point, and Isolated Region in the TARGET Object Store. For details, see [Configuring a workflow system for IBM Case Manager](https://www.ibm.com/support/knowledgecenter/SSCTJ4_5.3.2/com.ibm.casemgmt.installing.doc/acmin049.htm)
 
 ## 2. Prepare the IBM Content Navigator configuration files.
 This image based is based on IBM Content Navigator. To make IBM Case Manager work, you must first prepare the configuration files for the IBM Content Navigatory container image. See [Preparing for container installation](https://github.com/ibm-ecm/container-icn#preparing-for-container-installation) in the IBM Content Navigator container readme and confirm that all the listed steps are completed.
@@ -106,9 +106,9 @@ Before continuing to use IBM Case Manager, make sure you have done the following
 ### 3.1 Run the IBM Case Manager Container configuration plug-in.
 You can use the IBM Case Manager Container configuration plug-in to set up IBM Case Manager:
 
-- Register the plug-in ```/opt/ibm/icm/config/ICMContainerConfigPlugin.jar```. To learn more, see [Registering and configuring plug-ins](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.2/com.ibm.installingeuc.doc/eucco012.htm) in the IBM Content Navigator documentation.
-- Create a new Repository connecting to your Design Object Store. To learn more, see [Connecting and configuring IBM FileNet Content Manager repositories](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.2/com.ibm.installingeuc.doc/eucco015.htm) in the IBM Content Navigator documentation.
-- Create a new desktop with the following values. To learn more, see [Definning desktops](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.2/com.ibm.installingeuc.doc/eucco006.htm) in the IBM Content Navigator documentation. 
+- Register the plug-in ```/opt/ibm/icm/config/ICMContainerConfigPlugin.jar```. To learn more, see [Registering and configuring plug-ins](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.3/com.ibm.installingeuc.doc/eucco012.htm) in the IBM Content Navigator documentation.
+- Create a new Repository connecting to your Design Object Store. To learn more, see [Connecting and configuring IBM FileNet Content Manager repositories](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.3/com.ibm.installingeuc.doc/eucco015.htm) in the IBM Content Navigator documentation.
+- Create a new desktop with the following values. To learn more, see [Definning desktops](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.3/com.ibm.installingeuc.doc/eucco006.htm) in the IBM Content Navigator documentation. 
     - Name: IBM Case Manager Container configuration
     - ID: icmconfig
     - Description: Default desktop for Case Manager Container configuration
@@ -182,7 +182,7 @@ To set up the Case Synchronizer tool:
     - Edit CLASSPATH as appropriate (such as changing `configure/lib/Jace.jar` to `configure/Jace.jar` and changing `configure/lib/log4j-1.2.13.jar` to `lib/log4j-1.2.13.jar`)
     - Set JAVA_HOME location to the bin directory of the system's JRE.
 
-For full information, see [Synchronizing cases with solution data](https://www.ibm.com/support/knowledgecenter/en/SSCTJ4_5.3.1/com.ibm.casemgmt.design.doc/acmdr005.htm).
+For full information, see [Synchronizing cases with solution data](https://www.ibm.com/support/knowledgecenter/en/SSCTJ4_5.3.2/com.ibm.casemgmt.design.doc/acmdr005.htm).
  
 ### 4.3 Use the Precondition Checker tool.
  
@@ -195,7 +195,7 @@ To set up the Precondition Checker tool:
     - Edit CLASSPATH as appropriate (such as changing `configure/lib/Jace.jar` to `configure/Jace.jar` and changing `configure/lib/log4j-1.2.13.jar` to `lib/log4j-1.2.13.jar`)
     - Set JAVA_HOME location to the bin directory of the system's JRE.
 
-For full information, see [Validating preconditions](https://www.ibm.com/support/knowledgecenter/en/SSCTJ4_5.3.1/com.ibm.casemgmt.design.doc/acmdr002.htm).
+For full information, see [Validating preconditions](https://www.ibm.com/support/knowledgecenter/en/SSCTJ4_5.3.2/com.ibm.casemgmt.design.doc/acmdr002.htm).
 
 ### 4.4 Configure required to support business rules.
 On the CPE Docker container, there neesd to be an additional volume map for the IBM Case Manager rules repository directory:
