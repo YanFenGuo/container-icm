@@ -80,7 +80,7 @@ Change the owner permission on the host mount directories to make sure that the 
 ## 1. Pull the IBM Case Manager Docker image.
 Use the following commands with your own credentials:
 
-- ```docker login -u ***** -p ****** ibmcorp```
+- ```docker login -u [Docker ID] -p [Password]```
 - ```docker pull ibmcorp/ecm_earlyadopters_icm:earlyadopters-gm5.5```
 
 ## 2. Run the container in the Docker environment.
