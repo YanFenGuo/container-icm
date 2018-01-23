@@ -1,6 +1,6 @@
 <server>
 	<ldapRegistry id="TDSenable11" realm="RealmSample"
-		host="enable11.fyre.ibm.com" 
+		host="hostname" 
 		baseDN="o=sample" 
 		port="389"
 		ldapType="IBM Tivoli Directory Server" 
