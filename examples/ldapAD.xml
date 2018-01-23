@@ -1,12 +1,12 @@
 <server>
 	<ldapRegistry id="localAD" realm="MasterRealm"
-		host="9.30.99.169" 
-		baseDN="OU=Engineering,OU=FileNet,DC=ibm,DC=com" 
+		host="hostname" 
+		baseDN="" 
 		port="389"
 		ldapType="Microsoft Active Directory" 
-		bindDN="CN=CEAdmin,OU=Shared,OU=Engineering,OU=FileNet,DC=ibm,DC=com" 
+		bindDN="" 
 		sslEnabled="false"
-		bindPassword="Genius1">
+		bindPassword="password">
 		<activedFilters
 			userFilter="(&amp;(objectClass=person)(cn=%v))"
 			groupFilter="(&amp;(objectClass=group)(cn=%v))" 
